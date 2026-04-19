@@ -104,7 +104,7 @@
   }
   .hero-headline {
     font-size: clamp(3.2rem, 6.5vw, 6rem);
-    font-weight: 900; line-height: 1.06;
+    font-weight: 900; line-height: 1.1;
     color: var(--white);
     letter-spacing: -0.04em;
   }
@@ -474,7 +474,7 @@
     animation: heroLineUp 0.7s cubic-bezier(.22,1,.36,1) 0.1s forwards;
   }
   .hero-line {
-    display: block; overflow: hidden;
+    display: block; overflow: visible; padding-bottom: 0.08em;
   }
   .hero-line-inner {
     display: block;
@@ -524,7 +524,7 @@
 
   /* ── WORK CARD HOVER UPGRADE ── */
   .work-card {
-    cursor: pointer;
+    cursor: default;
     transition: transform 0.4s cubic-bezier(.22,1,.36,1);
   }
   .work-card-media {
@@ -730,7 +730,7 @@
     <p class="hero-sub">Strategy, video, and social</p>
     <div class="hero-actions">
       <a href="https://calendar.app.google/KKqcj7fRNatYY23p8" target="_blank" rel="noopener noreferrer" class="btn-primary">Book a Strategy Call</a>
-      <a href="#cta" class="btn-secondary">Not sure yet? Fill out the form</a>
+      <a href="#cta" class="btn-secondary">Tell us what you need</a>
     </div>
   </div>
 </section>
@@ -912,54 +912,6 @@
   </div>
 </section>
 
-<!-- WORK / CASES -->
-<section id="work">
-  <div class="work-headline-row">
-    <div>
-      <p class="section-label reveal">Our Work</p>
-      <h2 class="section-headline reveal">Results in<br>the real world.</h2>
-    </div>
-    <a href="#" class="work-link reveal">View All Cases →</a>
-  </div>
-  <div class="work-grid">
-    <div class="work-card reveal" style="grid-column: span 2;">
-      <div class="work-card-media work-placeholder">Client Video / Sizzle Reel — Place Media Here</div>
-      <div class="work-card-overlay">
-        <p class="work-card-label">Case Study · Video Production</p>
-        <p class="work-card-title">DiAmíti — Industrial Expansion Film<span class="work-card-arrow">→</span></p>
-      </div>
-    </div>
-    <div class="work-card reveal">
-      <div class="work-card-media work-placeholder">Client Photo / Image</div>
-      <div class="work-card-overlay">
-        <p class="work-card-label">Case Study · Social Strategy</p>
-        <p class="work-card-title">265% LinkedIn Reach Growth<span class="work-card-arrow">→</span></p>
-      </div>
-    </div>
-    <div class="work-card reveal">
-      <div class="work-card-media work-placeholder">Client Photo / Image</div>
-      <div class="work-card-overlay">
-        <p class="work-card-label">Case Study · Full Engagement</p>
-        <p class="work-card-title">From Content to Conversion<span class="work-card-arrow">→</span></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section id="testimonials">
-  <p class="section-label reveal">What Clients Say</p>
-  <h2 class="section-headline reveal">The proof is<br>in the work.</h2>
-  <div class="testi-grid" style="margin-top: 3rem;">
-    <div class="testi-card testi-placeholder reveal">
-      <p style="font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;">Testimonial 1 — Add Quote Here</p>
-    </div>
-    <div class="testi-card testi-placeholder reveal">
-      <p style="font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;">Testimonial 2 — Add Quote Here</p>
-    </div>
-  </div>
-</section>
-
 <!-- WHAT THIS UNLOCKS -->
 <section id="unlocks">
   <div class="unlocks-sticky-outer" id="unlocks-outer">
@@ -999,6 +951,55 @@
   </div>
 </section>
 
+
+<!-- WORK / CASES -->
+<section id="work">
+  <div class="work-headline-row">
+    <div>
+      <p class="section-label reveal">Our Work</p>
+      <h2 class="section-headline reveal">Results in<br>the real world.</h2>
+    </div>
+    <span class="work-link reveal">Selected Work</span>
+  </div>
+  <div class="work-grid">
+    <div class="work-card reveal" style="grid-column: span 2;">
+      <div class="work-card-media work-placeholder">Drop hero case video here<br><span style="font-size:0.65rem;letter-spacing:0.04em;">Replace this block with a &lt;video&gt; or &lt;img&gt;</span></div>
+      <div class="work-card-overlay">
+        <p class="work-card-label">Case Study · Video Production</p>
+        <p class="work-card-title">DiAmíti — Industrial Expansion Film</p>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-media work-placeholder">Drop case image here<br><span style="font-size:0.65rem;letter-spacing:0.04em;">Replace this block with an &lt;img&gt;</span></div>
+      <div class="work-card-overlay">
+        <p class="work-card-label">Case Study · Social Strategy</p>
+        <p class="work-card-title">265% LinkedIn Reach Growth</p>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-media work-placeholder">Drop case image here<br><span style="font-size:0.65rem;letter-spacing:0.04em;">Replace this block with an &lt;img&gt;</span></div>
+      <div class="work-card-overlay">
+        <p class="work-card-label">Case Study · Full Engagement</p>
+        <p class="work-card-title">From Content to Conversion</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <p class="section-label reveal">What Clients Say</p>
+  <h2 class="section-headline reveal">The proof is<br>in the work.</h2>
+  <div class="testi-grid" style="margin-top: 3rem;">
+    <div class="testi-card testi-placeholder reveal">
+      <p style="font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;">Testimonial 1 — Add Quote Here</p>
+    </div>
+    <div class="testi-card testi-placeholder reveal">
+      <p style="font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;">Testimonial 2 — Add Quote Here</p>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section id="cta">
   <h2 class="section-headline" id="cta-headline">
@@ -1008,7 +1009,7 @@
   <p class="reveal">If you know what you want, book a strategy call. If you're still figuring out the right direction, fill out the short form and we'll point you in the right direction.</p>
   <div class="cta-btns reveal" style="margin-bottom: 2rem;">
     <a href="https://calendar.app.google/KKqcj7fRNatYY23p8" target="_blank" rel="noopener noreferrer" class="btn-green">Book a Strategy Call</a>
-    <a href="#contact-form" class="btn-secondary" style="color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.22);">Not sure yet? Fill out the form</a>
+    <a href="#contact-form" class="btn-secondary" style="color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.22);">Tell us what you need</a>
   </div>
 
   <div id="contact-form" class="reveal" style="max-width: 620px; margin: 0 auto; text-align: left;">
@@ -1078,6 +1079,7 @@
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 40);
   }, { passive: true });
+  if (window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search);
 
   /* ── Generic reveal ── */
   const reveals = document.querySelectorAll('.reveal');
@@ -1200,6 +1202,25 @@
 
   window.addEventListener('scroll', updateProcess, { passive: true });
   updateProcess();
+
+  /* ══════════════════════
+     HASHLESS INTERNAL NAV
+  ══════════════════════ */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search);
+    });
+  });
+
+  window.addEventListener('hashchange', () => {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  });
 
   /* ══════════════════════
      WHAT THIS UNLOCKS
