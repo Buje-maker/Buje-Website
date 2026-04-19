@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buje — Digital Presence for Growing Businesses</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #6abf4b;
+    --green-dark: #3B6D11;
+    --rose: #D4537E;
+    --black: #0d0d0d;
+    --white: #ffffff;
+    --gray-light: #f5f5f3;
+    --gray-mid: #e8e8e4;
+    --gray-text: #888;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: auto; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+    cursor: none;
+  }
+  a, button, [role="button"], .btn-primary, .btn-secondary, .btn-green, .nav-cta, .offer-cta, .work-link, .work-card { cursor: none; }
+
+  /* ── CUSTOM CURSOR ── */
+  #cursor-dot {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    will-change: left, top;
+    transition: width 0.2s ease, height 0.2s ease;
+  }
+  #cursor-ring {
+    position: fixed;
+    width: 38px; height: 38px;
+    border: 1.5px solid var(--green);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    opacity: 0.45;
+    will-change: left, top;
+    transition: width 0.4s cubic-bezier(.22,1,.36,1),
+                height 0.4s cubic-bezier(.22,1,.36,1),
+                opacity 0.3s ease,
+                border-color 0.3s ease;
+  }
+  body.cursor-hover #cursor-dot  { opacity: 0; }
+  body.cursor-hover #cursor-ring { width: 60px; height: 60px; opacity: 0; }
+  body.cursor-dark  #cursor-ring { border-color: rgba(255,255,255,0.4); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-color: var(--gray-mid); }
+  .nav-logo {
+    font-weight: 900; font-size: 1.5rem; letter-spacing: -0.03em;
+    color: var(--black); text-decoration: none;
+  }
+  .nav-logo span { color: var(--green); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.9rem; font-weight: 400; color: var(--black);
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-cta {
+    font-size: 0.85rem; font-weight: 700; padding: 0.6rem 1.4rem;
+    background: var(--black); color: var(--white);
+    border: none; cursor: pointer; border-radius: 100px;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--green-dark); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 10rem 4rem 7rem;
+    background: var(--black);
+    position: relative; overflow: hidden;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 860px; }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.38);
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 2.5rem;
+  }
+  .hero-headline {
+    font-size: clamp(3.2rem, 6.5vw, 6rem);
+    font-weight: 900; line-height: 1.06;
+    color: var(--white);
+    letter-spacing: -0.04em;
+  }
+  .hero-headline .dot-i {
+    position: relative;
+    display: inline-block;
+    /* Override the font's own dot by making letter dotless-style via pseudo */
+  }
+  .hero-headline .dot-i .green-dot {
+    display: inline-block;
+    width: 0.22em; height: 0.22em;
+    background: var(--green);
+    border-radius: 50%;
+    position: absolute;
+    top: 0.1em; left: 50%; transform: translateX(-50%);
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    font-weight: 300; color: rgba(255,255,255,0.45);
+    margin-top: 1.5rem; letter-spacing: 0.01em;
+  }
+  .hero-actions { display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    padding: 0.85rem 2rem; border-radius: 100px;
+    background: var(--white); color: var(--black);
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--green); color: var(--white); }
+  .btn-secondary {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; font-weight: 400;
+    padding: 0.85rem 2rem; border-radius: 100px;
+    background: transparent; color: var(--white);
+    border: 1px solid rgba(255,255,255,0.22);
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--rose); background: rgba(212,83,126,0.08); }
+
+  /* TAGLINE STRIP */
+  .tagline-strip {
+    background: var(--green);
+    padding: 1.1rem 0;
+    overflow: hidden;
+    position: relative;
+  }
+  .tagline-track {
+    display: flex; gap: 3rem; width: max-content;
+    animation: marquee 22s linear infinite;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .tagline-item {
+    font-size: 0.85rem; font-weight: 700; color: var(--white);
+    letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap;
+  }
+  .tagline-item .dot { color: var(--black); margin: 0 1rem; }
+
+  /* SECTIONS SHARED */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700; color: var(--gray-text);
+    letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .section-headline {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 900; line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  /* ABOUT / BRIDGE */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+    margin-top: 3rem;
+  }
+  .about-body {
+    font-size: 1.1rem; font-weight: 300; line-height: 1.85;
+    color: #333;
+  }
+  .about-body strong { font-weight: 700; color: var(--black); }
+  .about-stat-col { display: flex; flex-direction: column; gap: 2rem; padding-top: 0.5rem; }
+  .stat-card {
+    border-top: 2px solid var(--black);
+    padding-top: 1rem;
+  }
+  .stat-num {
+    font-size: 3rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1;
+    color: var(--black);
+  }
+  .stat-num span { color: var(--green); }
+  .stat-desc { font-size: 0.85rem; color: var(--gray-text); margin-top: 0.4rem; }
+
+  /* WHAT WE DO */
+  #services { background: var(--black); color: var(--white); }
+  #services .section-label { color: rgba(255,255,255,0.35); }
+  #services .section-headline { color: var(--white); }
+  .services-headline-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .services-intro {
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.55);
+    max-width: 420px; line-height: 1.7;
+  }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+  .service-card {
+    background: #111;
+    padding: 2.5rem 2rem;
+    border: 1px solid #1f1f1f;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { background: #161616; }
+  .service-card:hover .service-arrow { color: var(--green); }
+  .service-num {
+    font-size: 0.75rem; color: rgba(255,255,255,0.25);
+    letter-spacing: 0.15em; margin-bottom: 2rem;
+  }
+  .service-title {
+    font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem;
+    color: var(--white);
+  }
+  .service-desc {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.75;
+    color: rgba(255,255,255,0.5);
+  }
+  .service-arrow {
+    display: block; margin-top: 2rem;
+    font-size: 1.4rem; color: rgba(255,255,255,0.15);
+    transition: color 0.3s;
+  }
+
+  /* OFFERS */
+  #offers { background: var(--gray-light); }
+  .offers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .offer-card {
+    background: var(--white);
+    border: 1px solid var(--gray-mid);
+    border-radius: 16px; padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .offer-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.07); }
+  .offer-card.featured {
+    background: var(--black); color: var(--white);
+    border-color: var(--black);
+  }
+  .offer-badge {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 0.35rem 0.75rem;
+    border-radius: 100px; background: var(--green);
+    color: var(--white); width: fit-content; margin-bottom: 1.5rem;
+  }
+  .offer-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .offer-desc {
+    font-size: 0.9rem; font-weight: 300; line-height: 1.7;
+    color: #555; flex: 1;
+  }
+  .offer-card.featured .offer-desc { color: rgba(255,255,255,0.55); }
+  .offer-price {
+    font-size: 2rem; font-weight: 900; letter-spacing: -0.03em;
+    margin-top: 2rem;
+  }
+  .offer-price span { font-size: 1rem; font-weight: 300; color: var(--gray-text); }
+  .offer-card.featured .offer-price span { color: rgba(255,255,255,0.4); }
+  .offer-cta {
+    display: inline-block; margin-top: 1.5rem;
+    font-size: 0.85rem; font-weight: 700;
+    padding: 0.75rem 1.5rem; border-radius: 100px;
+    background: var(--black); color: var(--white);
+    text-decoration: none; text-align: center;
+    transition: background 0.2s;
+  }
+  .offer-card.featured .offer-cta {
+    background: var(--green); color: var(--white);
+  }
+  .offer-cta:hover { background: var(--green-dark); }
+
+  /* PROCESS — sticky scroll */
+  #process { background: var(--white); padding: 0; }
+  .process-outer { height: 500vh; position: relative; }
+  .process-sticky {
+    position: sticky; top: 0; height: 100vh;
+    display: flex; align-items: stretch; overflow: hidden;
+  }
+  .process-left {
+    width: 42%; padding: 7rem 4rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--gray-mid); flex-shrink: 0;
+  }
+  .process-left .section-label { margin-bottom: 1.5rem; }
+  .process-left .section-headline { margin-bottom: 1rem; }
+  .process-tagline {
+    font-size: 0.95rem; font-weight: 300; color: #777;
+    line-height: 1.75; margin-bottom: 3rem;
+  }
+  .process-steps-nav { display: flex; flex-direction: column; gap: 0; }
+  .process-nav-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 0; border-top: 1px solid var(--gray-mid);
+    transition: opacity 0.4s ease; opacity: 0.28;
+  }
+  .process-nav-item:last-child { border-bottom: 1px solid var(--gray-mid); }
+  .process-nav-item.active { opacity: 1; }
+  .process-nav-num {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--gray-text); min-width: 2rem;
+    transition: color 0.3s;
+  }
+  .process-nav-item.active .process-nav-num { color: var(--green); }
+  .process-nav-name { font-size: 1rem; font-weight: 700; color: var(--black); }
+  .process-nav-bar {
+    margin-left: auto; width: 40px; height: 2px;
+    background: var(--gray-mid); border-radius: 2px; overflow: hidden;
+  }
+  .process-nav-bar-fill {
+    height: 100%; width: 0%; background: var(--green);
+    transition: width 0.05s linear;
+  }
+  .process-right { flex: 1; position: relative; overflow: hidden; }
+  .process-panel {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7rem 5rem 4rem;
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.55s cubic-bezier(.22,1,.36,1),
+                transform 0.55s cubic-bezier(.22,1,.36,1);
+    pointer-events: none;
+  }
+  .process-panel.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .process-panel.exit-up { opacity: 0; transform: translateY(-40px); }
+  .process-panel.exit-down { opacity: 0; transform: translateY(40px); }
+  .process-panel-step {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--green); margin-bottom: 1.5rem;
+  }
+  .process-panel-title {
+    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900;
+    letter-spacing: -0.03em; line-height: 1.1;
+    color: var(--black); margin-bottom: 1.5rem;
+  }
+  .process-panel-desc {
+    font-size: 1.05rem; font-weight: 300; line-height: 1.85;
+    color: #444; max-width: 480px;
+  }
+  .process-panel-bg-num {
+    position: absolute; bottom: -0.1em; right: 3rem;
+    font-size: 22vw; font-weight: 900; line-height: 1;
+    color: var(--gray-light); letter-spacing: -0.06em;
+    pointer-events: none; user-select: none; z-index: 0;
+  }
+  .process-panel > *:not(.process-panel-bg-num) { position: relative; z-index: 1; }
+
+  /* WORK / CASES */
+  #work { background: var(--gray-light); }
+  .work-headline-row {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3rem;
+  }
+  .work-link {
+    font-size: 0.85rem; font-weight: 700; color: var(--black);
+    text-decoration: none; border-bottom: 2px solid var(--green);
+    padding-bottom: 2px;
+  }
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .work-card {
+    background: var(--gray-mid);
+    border-radius: 12px; aspect-ratio: 16/9;
+    overflow: hidden; position: relative;
+    display: flex; align-items: flex-end;
+  }
+  .work-card video, .work-card img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .work-card-overlay {
+    position: relative; z-index: 2;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+    width: 100%;
+  }
+  .work-card-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: rgba(255,255,255,0.6);
+    margin-bottom: 0.25rem;
+  }
+  .work-card-title { font-size: 1.1rem; font-weight: 700; color: var(--white); }
+  .work-placeholder {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; height: 100%;
+    color: rgba(0,0,0,0.2); font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  /* TESTIMONIALS */
+  #testimonials { background: var(--white); }
+  .testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+  .testi-card {
+    border: 1px solid var(--gray-mid); border-radius: 16px;
+    padding: 2.5rem; position: relative;
+  }
+  .testi-quote {
+    font-size: 2rem; line-height: 1; color: var(--green);
+    margin-bottom: 1rem; font-weight: 900;
+  }
+  .testi-text {
+    font-size: 1rem; font-weight: 300; line-height: 1.8;
+    color: #444; margin-bottom: 1.5rem;
+  }
+  .testi-author { font-size: 0.9rem; font-weight: 700; }
+  .testi-role { font-size: 0.8rem; color: var(--gray-text); }
+  .testi-placeholder {
+    background: var(--gray-light); border-style: dashed;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 180px; color: var(--gray-text); font-size: 0.85rem;
+  }
+
+  /* CTA SECTION */
+  #cta {
+    background: var(--black); color: var(--white);
+    text-align: center; padding: 8rem 4rem;
+  }
+  #cta .section-headline { color: var(--white); max-width: 700px; margin: 0 auto 1.5rem; }
+  #cta .section-headline .rose { color: var(--rose); }
+  #cta p {
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,0.5);
+    max-width: 520px; margin: 0 auto 3rem; line-height: 1.75;
+  }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-green {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem; font-weight: 700;
+    padding: 1rem 2.5rem; border-radius: 100px;
+    background: var(--green); color: var(--white);
+    border: none; cursor: pointer; text-decoration: none;
+    display: inline-block; transition: background 0.2s;
+  }
+  .btn-green:hover { background: var(--green-dark); }
+
+  /* FOOTER */
+  footer {
+    background: var(--black); color: rgba(255,255,255,0.35);
+    padding: 3rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid #1f1f1f;
+    font-size: 0.85rem;
+  }
+  footer .footer-logo { font-weight: 900; font-size: 1.2rem; color: var(--white); }
+  footer .footer-logo span { color: var(--green); }
+  footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  footer a:hover { color: var(--white); }
+
+  /* ── HERO LINE REVEAL ── */
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.38);
+    letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 2.5rem;
+    opacity: 0; transform: translateY(16px);
+    animation: heroLineUp 0.7s cubic-bezier(.22,1,.36,1) 0.1s forwards;
+  }
+  .hero-line {
+    display: block; overflow: hidden;
+  }
+  .hero-line-inner {
+    display: block;
+    opacity: 0; transform: translateY(100%);
+    animation: heroLineUp 0.75s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  .hero-line:nth-child(1) .hero-line-inner { animation-delay: 0.2s; }
+  .hero-line:nth-child(2) .hero-line-inner { animation-delay: 0.35s; }
+  .hero-line:nth-child(3) .hero-line-inner { animation-delay: 0.5s; }
+  @keyframes heroLineUp {
+    from { opacity: 0; transform: translateY(100%); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    font-weight: 300; color: rgba(255,255,255,0.45);
+    margin-top: 1.5rem; letter-spacing: 0.01em;
+    opacity: 0; transform: translateY(12px);
+    animation: heroLineUp 0.6s cubic-bezier(.22,1,.36,1) 0.65s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; margin-top: 3rem; flex-wrap: wrap;
+    opacity: 0; transform: translateY(12px);
+    animation: heroLineUp 0.6s cubic-bezier(.22,1,.36,1) 0.8s forwards;
+  }
+
+  /* ── NAV ACTIVE SECTION INDICATOR ── */
+  .nav-links a {
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 2px; background: var(--green);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s cubic-bezier(.22,1,.36,1);
+  }
+  .nav-links a.active::after { transform: scaleX(1); }
+  .nav-links a.active { color: var(--black); }
+
+  /* ── STAT COUNT-UP ── */
+  .stat-num {
+    font-size: 3rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1;
+    color: var(--black);
+  }
+  .stat-num span { color: var(--green); }
+
+  /* ── WORK CARD HOVER UPGRADE ── */
+  .work-card {
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(.22,1,.36,1);
+  }
+  .work-card-media {
+    position: absolute; inset: 0;
+    transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+    transform-origin: center;
+  }
+  .work-card:hover .work-card-media { transform: scale(1.04); }
+  .work-card-overlay {
+    transition: background 0.4s ease;
+  }
+  .work-card:hover .work-card-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.15) 100%);
+  }
+  .work-card-title {
+    transition: transform 0.35s cubic-bezier(.22,1,.36,1);
+  }
+  .work-card:hover .work-card-title { transform: translateY(-4px); }
+  .work-card-arrow {
+    display: inline-block;
+    opacity: 0; transform: translateX(-6px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(.22,1,.36,1);
+    margin-left: 6px; font-size: 0.9rem;
+  }
+  .work-card:hover .work-card-arrow { opacity: 1; transform: translateX(0); }
+
+  /* ── CTA HEADLINE SPLIT REVEAL ── */
+  .cta-line {
+    display: block; overflow: hidden;
+  }
+  .cta-line-inner {
+    display: block;
+    opacity: 0; transform: translateY(60%);
+    transition: opacity 0.7s cubic-bezier(.22,1,.36,1),
+                transform 0.7s cubic-bezier(.22,1,.36,1);
+  }
+  .cta-line-inner.cta-visible { opacity: 1; transform: translateY(0); }
+  .cta-line:nth-child(2) .cta-line-inner { transition-delay: 0.12s; }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+
+
+  /* ── SERVICES: cards start tilted, flip in ── */
+  .service-card {
+    transform-origin: bottom center;
+    transition: background 0.3s, transform 0.55s cubic-bezier(.22,1,.36,1), opacity 0.55s ease;
+  }
+  .service-card.pre-anim {
+    opacity: 0;
+    transform: perspective(600px) rotateX(18deg) translateY(40px);
+  }
+  .service-card.pre-anim.card-visible {
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg) translateY(0);
+  }
+
+  /* ── PROCESS: line draws in, text fades ── */
+  .process-item {
+    position: relative;
+    overflow: hidden;
+  }
+  .process-line {
+    position: absolute;
+    top: 0; left: 0;
+    height: 1px;
+    background: var(--black);
+    width: 0%;
+    transition: width 0.7s cubic-bezier(.22,1,.36,1);
+  }
+  .process-item.line-visible .process-line { width: 100%; }
+  .process-item .process-step,
+  .process-item .process-name,
+  .process-item .process-desc {
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .process-item.line-visible .process-step { opacity: 1; transform: none; transition-delay: 0.35s; }
+  .process-item.line-visible .process-name  { opacity: 1; transform: none; transition-delay: 0.45s; }
+  .process-item.line-visible .process-desc  { opacity: 1; transform: none; transition-delay: 0.55s; }
+
+  /* ── WHAT THIS UNLOCKS ── */
+  #unlocks {
+    background: var(--white);
+    padding: 0;
+    position: relative;
+  }
+  .unlocks-sticky-outer {
+    height: 400vh;
+    position: relative;
+  }
+  .unlocks-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .unlocks-label {
+    position: absolute;
+    top: 3.5rem; left: 4rem;
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--gray-text); letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .unlocks-label.visible { opacity: 1; transform: none; }
+  .unlocks-zoom {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-origin: center center;
+    will-change: transform;
+  }
+  .unlock-item {
+    position: absolute;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.1rem;
+    width: 280px;
+    /* Center-anchor: left/top set to the item's true center point in JS */
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+  .unlock-dot {
+    flex-shrink: 0;
+    width: 15px; height: 15px;
+    background: var(--green);
+    border-radius: 50%;
+    margin-top: 0.28rem;
+    will-change: transform;
+    transform-origin: center center;
+  }
+  .unlock-text-block {
+    will-change: opacity, filter, transform;
+  }
+  .unlock-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--black);
+    margin-bottom: 0.45rem;
+    line-height: 1.3;
+  }
+  .unlock-desc {
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.75;
+    color: #555;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    #hero { padding: 7rem 1.5rem 5rem; }
+    .about-grid, .services-grid, .offers-grid,
+    .work-grid, .testi-grid { grid-template-columns: 1fr; }
+    .process-item { grid-template-columns: 2rem 1fr; }
+    .process-desc { grid-column: 2; }
+    .nav-links { display: none; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="#">Buje<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Cases</a></li>
+  </ul>
+  <a class="nav-cta" href="#cta">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Digital Presence &nbsp;·&nbsp; Strategy &nbsp;·&nbsp; Creative</p>
+    <h1 class="hero-headline">
+      <span class="hero-line"><span class="hero-line-inner">Content that makes</span></span>
+      <span class="hero-line"><span class="hero-line-inner">brands <span class="dot-i"><span class="green-dot"></span>ı</span>mpossible</span></span>
+      <span class="hero-line"><span class="hero-line-inner">to ignore<span style="color: var(--rose)">;</span></span></span>
+    </h1>
+    <p class="hero-sub">Strategy, video, and social</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View Our Work</a>
+      <a href="#cta" class="btn-secondary">Book a Call →</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="tagline-strip">
+  <div class="tagline-track">
+    <span class="tagline-item">Positioning<span class="dot">·</span></span>
+    <span class="tagline-item">Content Direction<span class="dot">·</span></span>
+    <span class="tagline-item">Growth Creative<span class="dot">·</span></span>
+    <span class="tagline-item">Lead Generation<span class="dot">·</span></span>
+    <span class="tagline-item">Social Strategy<span class="dot">·</span></span>
+    <span class="tagline-item">Video Production<span class="dot">·</span></span>
+    <span class="tagline-item">Positioning<span class="dot">·</span></span>
+    <span class="tagline-item">Content Direction<span class="dot">·</span></span>
+    <span class="tagline-item">Growth Creative<span class="dot">·</span></span>
+    <span class="tagline-item">Lead Generation<span class="dot">·</span></span>
+    <span class="tagline-item">Social Strategy<span class="dot">·</span></span>
+    <span class="tagline-item">Video Production<span class="dot">·</span></span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <p class="section-label reveal">Who We Are</p>
+  <div class="about-grid">
+    <div>
+      <h2 class="section-headline reveal">
+        You<span style="color:var(--rose)">'</span>re building<br>the business.<br>
+        We build your<br>online presence.
+      </h2>
+      <p class="about-body reveal" style="margin-top: 2rem;">
+        We bridge the gap between <strong>offline success and online growth.</strong> You've built something real. But if your online presence isn't bringing in new clients, you're leaving money on the table.
+        <br><br>
+        We help business owners show up online in a way that attracts the right clients and converts them.
+      </p>
+      <a href="#cta" class="btn-primary reveal" style="margin-top: 2.5rem; background: var(--black); color: var(--white); display: inline-block;">Work With Us</a>
+    </div>
+    <div class="about-stat-col">
+      <div class="stat-card reveal">
+        <div class="stat-num"><span class="count-up" data-target="265" data-suffix="%">0</span><span>%</span></div>
+        <div class="stat-desc">LinkedIn reach growth for active clients</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-num"><span class="count-up" data-target="133" data-suffix="%">0</span><span>%</span></div>
+        <div class="stat-desc">Content view increase — Instagram</div>
+      </div>
+      <div class="stat-card reveal">
+        <div class="stat-num"><span class="count-up" data-target="120" data-suffix="">0</span><span>days</span></div>
+        <div class="stat-desc">To a fully built client acquisition system</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-headline-row">
+    <div>
+      <p class="section-label">What We Do</p>
+      <h2 class="section-headline reveal">Three areas.<br>One system.</h2>
+    </div>
+    <p class="services-intro reveal">Each built to help your business attract and convert the right clients online.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card pre-anim" data-delay="0">
+      <p class="service-num">01</p>
+      <h3 class="service-title">Positioning</h3>
+      <p class="service-desc">We fix how your business communicates its value. If your presence doesn't clearly show who you are or why you're the right choice, you're losing leads before a conversation starts. We establish a position that works in your market.</p>
+      <span class="service-arrow">→</span>
+    </div>
+    <div class="service-card pre-anim" data-delay="120">
+      <p class="service-num">02</p>
+      <h3 class="service-title">Content Direction</h3>
+      <p class="service-desc">We turn random posts into trust-building assets. We define exactly what your content needs to say, how often, and on which platforms — ensuring every piece moves the right people closer to working with you.</p>
+      <span class="service-arrow">→</span>
+    </div>
+    <div class="service-card pre-anim" data-delay="240">
+      <p class="service-num">03</p>
+      <h3 class="service-title">Growth Creative</h3>
+      <p class="service-desc">We produce high-end video and photography built to attract qualified leads, not just followers. Every asset is designed around your specific offer, your audience, and the outcomes your clients actually care about.</p>
+      <span class="service-arrow">→</span>
+    </div>
+  </div>
+</section>
+
+<!-- OFFERS -->
+<section id="offers">
+  <p class="section-label reveal">Our Offers</p>
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+    <h2 class="section-headline reveal">Built for<br>serious growth.</h2>
+    <p class="reveal" style="font-size: 0.95rem; font-weight: 300; color: #777; max-width: 320px; line-height: 1.7;">Structured to fit your business, with measurable impact from day one.</p>
+  </div>
+  <div class="offers-grid">
+    <div class="offer-card reveal">
+      <span class="offer-badge">Foundation</span>
+      <h3 class="offer-title">Positioning Sprint</h3>
+      <p class="offer-desc">A focused audit and strategy session. We diagnose exactly where your presence is falling short and define what needs to change — before building anything.</p>
+      <a href="#cta" class="offer-cta" style="margin-top: auto;">Get Started</a>
+    </div>
+    <div class="offer-card featured reveal">
+      <span class="offer-badge">Most Popular</span>
+      <h3 class="offer-title">Digital Conversion Engine</h3>
+      <p class="offer-desc">Our flagship 120-day programme. Content, creative, strategy, and systems — all built to turn your online presence into a structured client acquisition engine.</p>
+      <a href="#cta" class="offer-cta" style="margin-top: auto;">Book a Call</a>
+    </div>
+    <div class="offer-card reveal">
+      <span class="offer-badge">Ongoing</span>
+      <h3 class="offer-title">Monthly Partnership</h3>
+      <p class="offer-desc">We don't do one-off projects and disappear. An ongoing engagement where we manage direction, content, and creative — continuously growing your presence.</p>
+      <a href="#cta" class="offer-cta" style="margin-top: auto;">Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS — sticky scroll -->
+<section id="process">
+  <div class="process-outer" id="process-outer">
+    <div class="process-sticky">
+
+      <!-- Left: heading + step nav -->
+      <div class="process-left">
+        <p class="section-label">Our Process</p>
+        <h2 class="section-headline">Every engagement<br>starts the same way.</h2>
+        <p class="process-tagline">The better we understand your business,<br>the better the work performs.</p>
+        <div class="process-steps-nav">
+          <div class="process-nav-item active" data-step="0">
+            <span class="process-nav-num">01</span>
+            <span class="process-nav-name">Diagnose</span>
+            <div class="process-nav-bar"><div class="process-nav-bar-fill"></div></div>
+          </div>
+          <div class="process-nav-item" data-step="1">
+            <span class="process-nav-num">02</span>
+            <span class="process-nav-name">Align</span>
+            <div class="process-nav-bar"><div class="process-nav-bar-fill"></div></div>
+          </div>
+          <div class="process-nav-item" data-step="2">
+            <span class="process-nav-num">03</span>
+            <span class="process-nav-name">Build</span>
+            <div class="process-nav-bar"><div class="process-nav-bar-fill"></div></div>
+          </div>
+          <div class="process-nav-item" data-step="3">
+            <span class="process-nav-num">04</span>
+            <span class="process-nav-name">Sustain</span>
+            <div class="process-nav-bar"><div class="process-nav-bar-fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: step content panels -->
+      <div class="process-right">
+        <div class="process-panel active" data-panel="0">
+          <div class="process-panel-bg-num">01</div>
+          <p class="process-panel-step">Step 01</p>
+          <h3 class="process-panel-title">Diagnose</h3>
+          <p class="process-panel-desc">We take time to understand what you do, who your best clients are, and where your online presence is falling short. No assumptions — just the right questions.</p>
+        </div>
+        <div class="process-panel" data-panel="1">
+          <div class="process-panel-bg-num">02</div>
+          <p class="process-panel-step">Step 02</p>
+          <h3 class="process-panel-title">Align</h3>
+          <p class="process-panel-desc">We define exactly how your business should be presented online — what to say, who to speak to, and how to make the right people stop and pay attention.</p>
+        </div>
+        <div class="process-panel" data-panel="2">
+          <div class="process-panel-bg-num">03</div>
+          <p class="process-panel-step">Step 03</p>
+          <h3 class="process-panel-title">Build</h3>
+          <p class="process-panel-desc">We create the content, the creative, and the presence — built to a high standard and aligned to your goals. Every asset has a purpose.</p>
+        </div>
+        <div class="process-panel" data-panel="3">
+          <div class="process-panel-bg-num">04</div>
+          <p class="process-panel-step">Step 04</p>
+          <h3 class="process-panel-title">Sustain</h3>
+          <p class="process-panel-desc">We don't do one-off projects and disappear. We build an online presence that grows with your business — getting stronger the longer we work together.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WORK / CASES -->
+<section id="work">
+  <div class="work-headline-row">
+    <div>
+      <p class="section-label reveal">Our Work</p>
+      <h2 class="section-headline reveal">Results in<br>the real world.</h2>
+    </div>
+    <a href="#" class="work-link reveal">View All Cases →</a>
+  </div>
+  <div class="work-grid">
+    <div class="work-card reveal" style="grid-column: span 2;">
+      <div class="work-card-media work-placeholder">Client Video / Sizzle Reel — Place Media Here</div>
+      <div class="work-card-overlay">
+        <p class="work-card-label">Case Study · Video Production</p>
+        <p class="work-card-title">DiAmíti — Industrial Expansion Film<span class="work-card-arrow">→</span></p>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-media work-placeholder">Client Photo / Image</div>
+      <div class="work-card-overlay">
+        <p class="work-card-label">Case Study · Social Strategy</p>
+        <p class="work-card-title">265% LinkedIn Reach Growth<span class="work-card-arrow">→</span></p>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <div class="work-card-media work-placeholder">Client Photo / Image</div>
+      <div class="work-card-overlay">
+        <p class="work-card-label">Case Study · Full Engagement</p>
+        <p class="work-card-title">From Content to Conversion<span class="work-card-arrow">→</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <p class="section-label reveal">What Clients Say</p>
+  <h2 class="section-headline reveal">The proof is<br>in the work.</h2>
+  <div class="testi-grid" style="margin-top: 3rem;">
+    <div class="testi-card testi-placeholder reveal">
+      <p style="font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;">Testimonial 1 — Add Quote Here</p>
+    </div>
+    <div class="testi-card testi-placeholder reveal">
+      <p style="font-size: 0.85rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;">Testimonial 2 — Add Quote Here</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT THIS UNLOCKS -->
+<section id="unlocks">
+  <div class="unlocks-sticky-outer" id="unlocks-outer">
+    <div class="unlocks-sticky">
+      <p class="unlocks-label" id="unlocks-label">What This Unlocks</p>
+      <div class="unlocks-zoom" id="unlocks-zoom">
+        <div class="unlock-item" id="unlock-0">
+          <div class="unlock-dot"></div>
+          <div class="unlock-text-block">
+            <p class="unlock-title">Move beyond referrals</p>
+            <p class="unlock-desc">Your online presence becomes part of your network — bringing in qualified clients who already understand your value before they ever reach out.</p>
+          </div>
+        </div>
+        <div class="unlock-item" id="unlock-1">
+          <div class="unlock-dot"></div>
+          <div class="unlock-text-block">
+            <p class="unlock-title">Turn your presence into a client pipeline</p>
+            <p class="unlock-desc">No confusion about what you offer. No convincing required. The right clients recognise it straight away — and come ready to have a conversation.</p>
+          </div>
+        </div>
+        <div class="unlock-item" id="unlock-2">
+          <div class="unlock-dot"></div>
+          <div class="unlock-text-block">
+            <p class="unlock-title">Make content work for you</p>
+            <p class="unlock-desc">With clear direction behind every piece, content stops being something you dread and starts quietly working for your business every single day.</p>
+          </div>
+        </div>
+        <div class="unlock-item" id="unlock-3">
+          <div class="unlock-dot"></div>
+          <div class="unlock-text-block">
+            <p class="unlock-title">Make online a real driver of growth</p>
+            <p class="unlock-desc">Your online presence starts matching the quality of what you've built — attracting clients at the level your business is already operating at.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <h2 class="section-headline" id="cta-headline">
+    <span class="cta-line"><span class="cta-line-inner">Serious about growth<span style="color:var(--rose)">?</span></span></span>
+    <span class="cta-line"><span class="cta-line-inner">Let<span style="color:var(--rose)">'</span>s talk.</span></span>
+  </h2>
+  <p class="reveal">We work with a focused number of clients. If you're serious about growth and want a high-standard partner, reach out — we'll tell you honestly if we're the right fit.</p>
+  <div class="cta-btns reveal">
+    <a href="mailto:nbujan@bebuje.com" class="btn-green">Book a Call</a>
+    <a href="#offers" class="btn-secondary" style="color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.2);">View Offers</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">Buje<span>.</span></div>
+    <div style="margin-top: 0.5rem; font-size: 0.8rem;">
+      <a href="mailto:nbujan@bebuje.com">nbujan@bebuje.com</a>
+    </div>
+  </div>
+  <div style="font-size: 0.8rem; text-align: right;">
+    <div>© 2026 Buje Entertainment LLC. All rights reserved.</div>
+    <div style="margin-top: 0.25rem;"><a href="https://bebuje.com">bebuje.com</a></div>
+  </div>
+</footer>
+
+<script>
+  /* ── NAV scroll border ── */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* ── Generic reveal ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 70);
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => revealObs.observe(el));
+
+  /* ══════════════════════
+     ACTIVE NAV TRACKING
+  ══════════════════════ */
+  const sections = ['about','services','offers','process','work','testimonials'];
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
+
+  function updateActiveNav() {
+    const mid = window.innerHeight * 0.4;
+    let active = null;
+    sectionEls.forEach(sec => {
+      const r = sec.getBoundingClientRect();
+      if (r.top <= mid) active = sec.id;
+    });
+    navLinks.forEach(a => {
+      const href = a.getAttribute('href').replace('#','');
+      a.classList.toggle('active', href === active);
+    });
+  }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  /* ══════════════════════
+     STAT COUNT-UP
+  ══════════════════════ */
+  function animateCount(el, target, duration) {
+    let start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      const prog = Math.min((ts - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - prog, 3);
+      el.textContent = Math.round(ease * target);
+      if (prog < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const countEls = document.querySelectorAll('.count-up');
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const target = parseInt(e.target.dataset.target);
+        animateCount(e.target, target, 1200);
+        countObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  countEls.forEach(el => countObs.observe(el));
+
+  /* ══════════════════════
+     SERVICE CARDS 3D TILT
+  ══════════════════════ */
+  const serviceCards = document.querySelectorAll('.service-card.pre-anim');
+  const cardObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const delay = parseInt(e.target.dataset.delay || 0);
+        setTimeout(() => e.target.classList.add('card-visible'), delay);
+        cardObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  serviceCards.forEach(c => cardObs.observe(c));
+
+  /* ══════════════════════
+     PROCESS STICKY SCROLL
+  ══════════════════════ */
+  const processOuter = document.getElementById('process-outer');
+  const panels       = document.querySelectorAll('.process-panel');
+  const navItems     = document.querySelectorAll('.process-nav-item');
+  const barFills     = document.querySelectorAll('.process-nav-bar-fill');
+  const STEP_COUNT   = 4;
+  let currentStep    = 0;
+
+  function setStep(newStep, direction) {
+    if (newStep === currentStep) return;
+    const old = currentStep;
+    currentStep = newStep;
+    panels[old].classList.remove('active');
+    panels[old].classList.add(direction === 1 ? 'exit-up' : 'exit-down');
+    setTimeout(() => panels[old].classList.remove('exit-up', 'exit-down'), 600);
+    panels[newStep].style.transform = direction === 1 ? 'translateY(40px)' : 'translateY(-40px)';
+    panels[newStep].style.transition = 'none';
+    panels[newStep].classList.add('active');
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      panels[newStep].style.transition = '';
+      panels[newStep].style.transform  = '';
+    }));
+    navItems.forEach((n, i) => n.classList.toggle('active', i === newStep));
+  }
+
+  function updateProcess() {
+    const rect     = processOuter.getBoundingClientRect();
+    const total    = processOuter.offsetHeight - window.innerHeight;
+    const scrolled = Math.max(0, -rect.top);
+    const progress = Math.min(1, Math.max(0, scrolled / total));
+    const rawStep  = progress * STEP_COUNT;
+    const step     = Math.min(STEP_COUNT - 1, Math.floor(rawStep));
+    const stepFrac = rawStep - step;
+    barFills.forEach((b, i) => {
+      if (i < step)        b.style.width = '100%';
+      else if (i === step) b.style.width = (stepFrac * 100).toFixed(1) + '%';
+      else                 b.style.width = '0%';
+    });
+    if (step !== currentStep) setStep(step, step > currentStep ? 1 : -1);
+  }
+
+  window.addEventListener('scroll', updateProcess, { passive: true });
+  updateProcess();
+
+  /* ══════════════════════
+     WHAT THIS UNLOCKS
+     All positions are the item's CENTER POINT as % of the sticky viewport.
+     CSS uses transform: translate(-50%, -50%) so left/top = true center.
+     This makes the cluster a mathematically perfect square at 50/50.
+  ══════════════════════ */
+  (function() {
+    const outer = document.getElementById('unlocks-outer');
+    const zoom  = document.getElementById('unlocks-zoom');
+    const label = document.getElementById('unlocks-label');
+    if (!outer || !zoom) return;
+
+    const itemEls = [0,1,2,3].map(i => document.getElementById('unlock-' + i));
+
+    // ── START: perfect square, dead center ──────────────────────────────────
+    // Half-gap from center: 3vw horizontally, 3vh vertically → tight square
+    // All four centers equidistant from (50, 50)
+    const GAP_X = 3;   // % from center horizontally
+    const GAP_Y = 4;   // % from center vertically
+    const START = [
+      { cx: 50 - GAP_X, cy: 50 - GAP_Y },  // top-left
+      { cx: 50 + GAP_X, cy: 50 - GAP_Y },  // top-right
+      { cx: 50 - GAP_X, cy: 50 + GAP_Y },  // bottom-left
+      { cx: 50 + GAP_X, cy: 50 + GAP_Y },  // bottom-right
+    ];
+
+    // ── FINAL: editorial grid, pulled in — not full-width ───────────────────
+    // Tight enough to feel composed; wide enough to read independently.
+    // Horizontal spread: 22–78% → ~56% of viewport used
+    // Vertical spread:   24–72% → ~48% of viewport used
+    const SPREAD_X = 21;  // % offset from center
+    const SPREAD_Y = 20;  // % offset from center
+    const FINAL = [
+      { cx: 50 - SPREAD_X, cy: 50 - SPREAD_Y },  // top-left
+      { cx: 50 + SPREAD_X, cy: 50 - SPREAD_Y },  // top-right
+      { cx: 50 - SPREAD_X, cy: 50 + SPREAD_Y },  // bottom-left
+      { cx: 50 + SPREAD_X, cy: 50 + SPREAD_Y },  // bottom-right
+    ];
+
+    const START_SCALE = 1.5;
+    const END_SCALE   = 1.0;
+    const OVERSHOOT   = 0.06;  // dots go 6% past final, then return
+
+    function easeInOut(t)    { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+    function easeOut3(t)     { return 1 - Math.pow(1-t, 3); }
+    function easeOutQuart(t) { return 1 - Math.pow(1-t, 4); }
+
+    // Overshoot curve: goes past 1.0 then settles back
+    function overshootCurve(t) {
+      // Spring-like: ease to (1 + OVERSHOOT) then pull back to 1
+      if (t < 0.75) {
+        return easeOut3(t / 0.75) * (1 + OVERSHOOT);
+      } else {
+        const settle = (t - 0.75) / 0.25;
+        return (1 + OVERSHOOT) - OVERSHOOT * easeOutQuart(settle);
+      }
+    }
+
+    // Repulsion offset: push slightly away from center as dot travels out
+    // Returns a multiplier > 1 at mid-travel, 1 at start/end
+    function repulsionBump(t) {
+      // Bell curve peak at t=0.5 → adds up to ~8% extra distance mid-flight
+      return 1 + 0.08 * Math.sin(t * Math.PI);
+    }
+
+    const labelObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) label.classList.add('visible'); });
+    }, { threshold: 0.05 });
+    labelObs.observe(outer);
+
+    function update() {
+      const rect     = outer.getBoundingClientRect();
+      const total    = outer.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const rawT     = Math.max(0, Math.min(1, scrolled / total));
+      const t        = easeInOut(rawT);
+
+      // Canvas zoom out
+      const scale = START_SCALE + (END_SCALE - START_SCALE) * t;
+      zoom.style.transform = `scale(${scale.toFixed(4)})`;
+
+      itemEls.forEach((el, i) => {
+        if (!el) return;
+
+        // Stagger: items 0–3 start at slightly different scroll positions
+        const stagger  = i * 0.04;
+        const itemRaw  = Math.max(0, Math.min(1, (rawT - stagger) / (1 - stagger)));
+        const itemT    = overshootCurve(itemRaw);     // overshoot + settle
+        const repulse  = repulsionBump(itemRaw);      // mid-flight repulsion
+
+        // Interpolate center position with repulsion applied to distance
+        const dCx = FINAL[i].cx - START[i].cx;
+        const dCy = FINAL[i].cy - START[i].cy;
+        const cx = START[i].cx + dCx * itemT * repulse;
+        const cy = START[i].cy + dCy * itemT * repulse;
+
+        el.style.left = cx.toFixed(3) + '%';
+        el.style.top  = cy.toFixed(3) + '%';
+
+        // Text: starts invisible + blurred + shifted down
+        // Becomes fully readable once dot is 55%+ of the way
+        const textRaw = Math.max(0, Math.min(1, (itemRaw - 0.52) / 0.43));
+        const textT   = easeOutQuart(textRaw);
+        const tb      = el.querySelector('.unlock-text-block');
+        tb.style.opacity   = textT.toFixed(3);
+        tb.style.filter    = `blur(${((1 - textT) * 4).toFixed(1)}px)`;
+        tb.style.transform = `translateY(${((1 - textT) * 10).toFixed(1)}px)`;
+
+        // Dot: starts 1.9× larger (clustered visual weight), shrinks to 1×
+        const dotS = 1 + (1 - Math.min(itemRaw, 1)) * 0.9;
+        el.querySelector('.unlock-dot').style.transform = `scale(${dotS.toFixed(3)})`;
+      });
+    }
+
+    // Prime the initial state (before any scroll)
+    itemEls.forEach((el, i) => {
+      if (!el) return;
+      el.style.left = START[i].cx + '%';
+      el.style.top  = START[i].cy + '%';
+      const tb = el.querySelector('.unlock-text-block');
+      tb.style.opacity   = '0';
+      tb.style.filter    = 'blur(4px)';
+      tb.style.transform = 'translateY(10px)';
+      el.querySelector('.unlock-dot').style.transform = 'scale(1.9)';
+    });
+    zoom.style.transform = `scale(${START_SCALE})`;
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+
+  /* ══════════════════════
+     CTA HEADLINE REVEAL
+  ══════════════════════ */
+  const ctaHeadline = document.getElementById('cta-headline');
+  const ctaObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.cta-line-inner').forEach(el => el.classList.add('cta-visible'));
+        ctaObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  if (ctaHeadline) ctaObs.observe(ctaHeadline);
+</script>
+<!-- CUSTOM CURSOR -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
+<script>
+  /* ════════════════════════════════════════
+     CUSTOM GREEN DOT CURSOR
+     Dot snaps precisely to mouse.
+     Ring lags behind with lerp for softness.
+  ════════════════════════════════════════ */
+  const dot  = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+
+  let mx = -100, my = -100;   // raw mouse
+  let rx = -100, ry = -100;   // ring lerp position
+  const RING_LERP = 0.13;
+
+  document.addEventListener('mousemove', (e) => {
+    mx = e.clientX;
+    my = e.clientY;
+    // Dot snaps immediately
+    dot.style.left = mx + 'px';
+    dot.style.top  = my + 'px';
+  });
+
+  // Ring follows with lag
+  function ringLoop() {
+    rx = lerp(rx, mx, RING_LERP);
+    ry = lerp(ry, my, RING_LERP);
+    ring.style.left = rx.toFixed(2) + 'px';
+    ring.style.top  = ry.toFixed(2) + 'px';
+    requestAnimationFrame(ringLoop);
+  }
+  requestAnimationFrame(ringLoop);
+
+  // Hover state — expand ring on interactive elements
+  const hoverEls = document.querySelectorAll('a, button, .btn-primary, .btn-secondary, .btn-green, .nav-cta, .offer-cta, .work-card, .service-card');
+  hoverEls.forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
+
+  // Dark section detection — change ring colour on black backgrounds
+  const darkSections = document.querySelectorAll('#hero, #services, #cta, footer');
+  const darkObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) document.body.classList.add('cursor-dark');
+      else {
+        // Only remove if no other dark section is intersecting
+        const anyDark = [...darkSections].some(s => {
+          const r = s.getBoundingClientRect();
+          return r.top < window.innerHeight * 0.5 && r.bottom > window.innerHeight * 0.5;
+        });
+        if (!anyDark) document.body.classList.remove('cursor-dark');
+      }
+    });
+  }, { threshold: 0.1 });
+  darkSections.forEach(s => darkObs.observe(s));
+
+  // Hide cursor when it leaves window
+  document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; ring.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; ring.style.opacity = ''; });
+</script>
+</body>
+</html>
