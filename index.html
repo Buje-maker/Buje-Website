@@ -744,9 +744,62 @@
     .cta-form { grid-template-columns: 1fr; }
     .cta-form .full-width { grid-column: auto; }
 
-    /* ── WORK CARDS: force equal bottom alignment ── */
-    .work-grid { align-items: end; }
-    .work-card { aspect-ratio: 4/3; }
+    /* ── WORK CARDS: single column, consistent sizing ── */
+    .work-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+    .work-card {
+      aspect-ratio: 4/3;
+      grid-column: span 1 !important;
+    }
+
+    /* ── UNLOCKS: disable animation, stack cleanly ── */
+    #unlocks { padding: 4rem 1.5rem; }
+    .unlocks-sticky-outer { height: auto; }
+    .unlocks-sticky {
+      position: relative;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+    .unlocks-label {
+      position: static;
+      opacity: 1 !important;
+      transform: none !important;
+      margin-bottom: 2rem;
+      display: block;
+    }
+    .unlocks-zoom {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 2.5rem !important;
+      transform: none !important;
+      position: static !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+    .unlock-item {
+      position: static !important;
+      left: auto !important;
+      top: auto !important;
+      transform: none !important;
+      width: 100% !important;
+      max-width: 100%;
+      gap: 1rem;
+    }
+    .unlock-text-block {
+      opacity: 1 !important;
+      filter: none !important;
+      transform: none !important;
+    }
+    .unlock-dot {
+      transform: none !important;
+      flex-shrink: 0;
+    }
+    .unlock-title { font-size: 1rem; margin-bottom: 0.4rem; }
+    .unlock-desc { font-size: 0.9rem; line-height: 1.7; }
 
     /* ── HERO: hide first line and "brands " on mobile ── */
     /* Result: "impossible to ignore;" only */
