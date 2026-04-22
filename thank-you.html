@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Buje</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FYTNYM9T00"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FYTNYM9T00');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wfc90t9ck2");
+</script>
+<script>
+  gtag('event', 'form_submit', {
+    event_category: 'Lead',
+    event_label: 'Formspree Submission Confirmed'
+  });
+</script>
+<style>
+  :root {
+    --green: #6abf4b;
+    --rose: #D4537E;
+    --black: #0d0d0d;
+    --white: #ffffff;
+    --gray-text: #888;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: radial-gradient(circle at top left, rgba(106,191,75,0.12), transparent 30%),
+                radial-gradient(circle at 85% 20%, rgba(212,83,126,0.10), transparent 28%),
+                var(--black);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 7rem 2rem 2rem; text-align: center;
+  }
+  body.cursor-enabled { cursor: none; }
+  body.cursor-enabled a,
+  body.cursor-enabled button,
+  body.cursor-enabled [role="button"],
+  body.cursor-enabled .nav-cta,
+  body.cursor-enabled .btn { cursor: none; }
+
+  #cursor-dot, #cursor-ring {
+    display: none; pointer-events: none;
+    position: fixed; transform: translate(-50%, -50%); z-index: 9999;
+  }
+  #cursor-dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--green);
+    transition: background 0.25s ease;
+  }
+  #cursor-ring {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1.5px solid var(--green); opacity: 0.45;
+    transition: width 0.35s ease, height 0.35s ease, opacity 0.25s ease;
+  }
+  body.cursor-enabled #cursor-dot,
+  body.cursor-enabled #cursor-ring { display: block; }
+  body.cursor-hover #cursor-dot { background: var(--rose); }
+  body.cursor-hover #cursor-ring { width: 60px; height: 60px; opacity: 0; }
+  body.cursor-dark #cursor-ring { border-color: rgba(255,255,255,0.42); }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+  }
+  .nav-logo {
+    font-weight: 900; font-size: 1.5rem; letter-spacing: -0.03em;
+    color: var(--white); text-decoration: none;
+  }
+  .nav-logo span { color: var(--green); }
+  .nav-cta {
+    font-size: 0.75rem; font-weight: 700; padding: 0.6rem 1.5rem;
+    background: transparent; color: var(--white);
+    border: 1.5px solid rgba(255,255,255,0.5); cursor: pointer; border-radius: 100px;
+    text-decoration: none; letter-spacing: 0.12em;
+    transition: background 0.4s, color 0.4s, border-color 0.4s;
+  }
+  .nav-cta:hover {
+    background: var(--green); color: var(--white);
+    border-color: var(--green);
+  }
+  .content { position: relative; z-index: 1; }
+  .label {
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 1.5rem;
+  }
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900; line-height: 1.08;
+    letter-spacing: -0.02em; margin-bottom: 1.25rem;
+  }
+  h1 span { color: var(--rose); }
+  p {
+    font-size: 1rem; font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7; max-width: 420px;
+    margin: 0 auto 2.5rem;
+  }
+  .btn {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    padding: 0.85rem 2rem; border-radius: 100px;
+    background: var(--white); color: var(--black);
+    text-decoration: none; transition: background 0.2s, color 0.2s;
+  }
+  .btn:hover { background: var(--green); color: var(--white); }
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+  <nav id="main-nav">
+    <a class="nav-logo" href="index.html">Buje<span>.</span></a>
+    <a class="nav-cta" href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer" onclick="gtag('event','calendar_click',{event_category:'Lead',event_label:'Book Call'});">BOOK</a>
+  </nav>
+  <div class="content">
+    <p class="label">Message Received</p>
+    <h1>We<span>'</span>ll be in touch.</h1>
+    <p>Your message has been received. We review every submission personally and will get back to you shortly.</p>
+    <a href="index.html" class="btn" onclick="gtag('event','cta_click',{event_category:'Navigation',event_label:'Back to Home'});">Back to Home</a>
+  </div>
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <script>
+    const enableCursor = window.matchMedia('(min-width: 960px) and (pointer: fine)');
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    function setCursorMode() {
+      if (enableCursor.matches) document.body.classList.add('cursor-enabled');
+      else document.body.classList.remove('cursor-enabled', 'cursor-hover', 'cursor-dark');
+    }
+    setCursorMode();
+    enableCursor.addEventListener('change', setCursorMode);
+
+    let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    let ringX = mouseX, ringY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      if (!enableCursor.matches) return;
+      mouseX = e.clientX; mouseY = e.clientY;
+      dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+    });
+    function animateRing() {
+      if (enableCursor.matches) {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+      }
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('a, button, .btn').forEach((el) => {
+      el.addEventListener('mouseenter', () => { if (enableCursor.matches) document.body.classList.add('cursor-hover'); });
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    const darkSections = document.querySelectorAll('body');
+    const darkObs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!enableCursor.matches) return;
+        if (e.isIntersecting) document.body.classList.add('cursor-dark');
+        else {
+          const anyDark = Array.from(darkSections).some((s) => {
+            const r = s.getBoundingClientRect();
+            return r.top < window.innerHeight && r.bottom > 0;
+          });
+          if (!anyDark) document.body.classList.remove('cursor-dark');
+        }
+      });
+    }, { threshold: 0.1 });
+    darkSections.forEach((s) => darkObs.observe(s));
+  </script>
+</body>
+</html>

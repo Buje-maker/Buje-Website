@@ -5,13 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Buje — Intentional Social Media for Real Growth</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&display=swap" rel="stylesheet">
-<!-- Google Analytics -->
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYTNYM9T00"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'G-FYTNYM9T00');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wfc90t9ck2");
 </script>
 <style>
   :root {
@@ -34,72 +43,58 @@
   }
 
   /* ── CUSTOM CURSOR ── */
-  #cursor-dot, #cursor-ring {
-    display: none; pointer-events: none;
-    position: fixed; transform: translate(-50%, -50%); z-index: 99999;
-    will-change: left, top;
-  }
-  #cursor-dot {
-    width: 10px; height: 10px; border-radius: 50%; background: var(--green);
-    transition: background 0.25s ease;
-  }
-  #cursor-ring {
-    width: 38px; height: 38px; border-radius: 50%;
-    border: 1.5px solid var(--green); opacity: 0.45;
-    transition: width 0.35s ease, height 0.35s ease, opacity 0.25s ease, border-color 0.3s ease;
-  }
   body.cursor-enabled { cursor: none; }
   body.cursor-enabled a,
   body.cursor-enabled button,
   body.cursor-enabled [role="button"],
   body.cursor-enabled .nav-cta,
   body.cursor-enabled .about-quote-card { cursor: none; }
-  body.cursor-enabled #cursor-dot,
-  body.cursor-enabled #cursor-ring { display: block; }
-  body.cursor-hover #cursor-dot  { background: var(--rose); }
-  body.cursor-hover #cursor-ring { width: 60px; height: 60px; opacity: 0; }
-  body.cursor-dark  #cursor-ring { border-color: rgba(255,255,255,0.4); }
+
+  #cursor-dot {
+    display: none; pointer-events: none;
+    position: fixed; transform: translate(-50%, -50%); z-index: 9999;
+    width: 10px; height: 10px; border-radius: 50%; background: var(--green);
+    transition: background 0.25s ease;
+  }
+  body.cursor-enabled #cursor-dot { display: block; }
+  body.cursor-hover #cursor-dot { background: var(--rose); }
 
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 1.5rem 4rem;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(8px);
+    background: transparent;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s;
   }
-  nav.scrolled { border-color: var(--gray-mid); }
   .nav-logo {
     font-weight: 900; font-size: 1.5rem; letter-spacing: -0.03em;
-    color: var(--black); text-decoration: none;
+    color: var(--white); text-decoration: none;
+    transition: color 0.25s ease;
   }
-  .nav-logo span { color: var(--green); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.9rem; font-weight: 400; color: var(--black);
-    text-decoration: none; letter-spacing: 0.02em;
-    transition: color 0.2s;
-    position: relative;
+  .nav-logo span {
+    color: var(--green);
+    transition: color 0.25s ease;
   }
-  .nav-links a:hover { color: var(--rose); }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px; left: 0; right: 0;
-    height: 2px; background: var(--green);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.3s cubic-bezier(.22,1,.36,1);
-  }
-  .nav-links a.active::after { transform: scaleX(1); }
-  .nav-links a.active { color: var(--black); }
+  nav.nav-light .nav-logo { color: var(--black); }
+  nav.nav-light .nav-logo span { color: var(--rose); }
+  .nav-links { display: none; }
   .nav-cta {
-    font-size: 0.85rem; font-weight: 700; padding: 0.6rem 1.4rem;
-    background: var(--black); color: var(--white);
+    font-size: 0.75rem; font-weight: 700; padding: 0.6rem 1.5rem;
+    background: transparent; color: var(--white);
     border: none; cursor: pointer; border-radius: 100px;
-    text-decoration: none; transition: background 0.2s;
+    text-decoration: none; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.25s ease;
   }
-  .nav-cta:hover { background: var(--green-dark); }
+  nav.nav-light .nav-cta {
+    color: var(--black);
+  }
+  .nav-cta:hover {
+    color: var(--green);
+  }
+  nav.nav-light .nav-cta:hover {
+    color: var(--rose);
+  }
 
   #hero {
     min-height: 100vh;
@@ -119,7 +114,7 @@
     font-size: clamp(3.2rem, 6.5vw, 6rem);
     font-weight: 900; line-height: 1.06;
     color: var(--white);
-    letter-spacing: -0.04em;
+    letter-spacing: -0.02em;
   }
   .hero-line {
     display: block; overflow: hidden;
@@ -205,7 +200,7 @@
   .section-headline {
     font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: 900; line-height: 1.1;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
   }
   .reveal {
     opacity: 0; transform: translateY(28px);
@@ -236,10 +231,11 @@
   }
   .about-quote-card,
   .about-focus-card {
-    border-radius: 18px;
-    border: 1px solid var(--gray-mid);
+    border-radius: 22px;
+    border: 1px solid rgba(13,13,13,0.08);
     overflow: hidden;
-    background: var(--gray-light);
+    background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(245,245,243,0.96) 100%);
+    box-shadow: 0 18px 50px rgba(13,13,13,0.08);
   }
   .about-quote-card {
     display: flex;
@@ -256,7 +252,7 @@
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1.25rem 1.25rem 0.25rem;
+    padding: 1.5rem 1.5rem 0.35rem;
     background: var(--white);
   }
   .founder-name {
@@ -270,18 +266,19 @@
     margin-top: 0.25rem;
   }
   .founder-badge {
-    min-width: 2.5rem;
-    height: 2.5rem;
+    min-width: 2.75rem;
+    height: 2.75rem;
     border-radius: 999px;
-    background: var(--black);
+    background: linear-gradient(135deg, var(--black), #2b2b2b);
     color: var(--white);
     display: grid;
     place-items: center;
     font-size: 0.8rem;
     font-weight: 700;
+    box-shadow: 0 10px 24px rgba(13,13,13,0.18);
   }
   .founder-note {
-    padding: 0 1.25rem 1.35rem;
+    padding: 0 1.5rem 1.6rem;
     background: var(--white);
     font-size: 0.92rem;
     font-weight: 300;
@@ -289,10 +286,14 @@
     color: #4a4a4a;
   }
   .about-focus-card {
-    padding: 1.5rem;
-    background: var(--black);
+    padding: 1.75rem;
+    background:
+      radial-gradient(circle at top left, rgba(106,191,75,0.14), transparent 38%),
+      radial-gradient(circle at top right, rgba(212,83,126,0.14), transparent 42%),
+      var(--black);
     color: var(--white);
-    border-color: #1f1f1f;
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 24px 60px rgba(13,13,13,0.22);
   }
   .about-focus-card .mini-label {
     font-size: 0.72rem;
@@ -340,9 +341,10 @@
   }
   .perspective-card {
     background: var(--white);
-    border: 1px solid var(--gray-mid);
-    border-radius: 18px;
-    padding: 2rem 1.6rem;
+    border: 1px solid rgba(13,13,13,0.08);
+    border-radius: 22px;
+    padding: 2.15rem 1.75rem;
+    box-shadow: 0 16px 40px rgba(13,13,13,0.06);
   }
   .perspective-num {
     font-size: 0.72rem;
@@ -469,9 +471,9 @@
   footer {
     background: var(--black); color: rgba(255,255,255,0.35);
     padding: 3rem 4rem;
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
     border-top: 1px solid #1f1f1f;
-    font-size: 0.85rem;
+    font-size: 0.85rem; text-align: center;
   }
   footer .footer-logo { font-weight: 900; font-size: 1.2rem; color: var(--white); }
   footer .footer-logo span { color: var(--green); }
@@ -482,7 +484,6 @@
     nav { padding: 1rem 1.5rem; }
     section { padding: 5rem 1.5rem; }
     #hero { padding: 7rem 1.5rem 5rem; }
-    .nav-links { display: none; }
     .about-intro-grid,
     .perspective-grid,
     .journey-layout,
@@ -501,17 +502,12 @@
 </head>
 <body>
 
-<nav id="main-nav">
+<nav id="main-nav" class="nav-light">
   <a class="nav-logo" href="index.html">Buje<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="index.html#services">Services</a></li>
-    <li><a href="index.html#work">Cases</a></li>
-  </ul>
-  <a class="nav-cta" href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer">Book a Call</a>
+  <a class="nav-cta" href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer" onclick="gtag('event','calendar_click',{event_category:'Lead',event_label:'Book Call'});">BOOK CALL</a>
 </nav>
 
-<section id="about-intro" style="padding-top: 9rem;">
+<section id="about-intro" data-nav-theme="light" style="padding-top: 9rem;">
   <p class="section-label reveal">Who We Are</p>
   <div class="about-intro-grid">
     <div class="about-foundation">
@@ -520,7 +516,7 @@
         <div class="founder-meta">
           <div>
             <div class="founder-name">Nicolas Bujan</div>
-            <div class="founder-role">Creative Director</div>
+            <div class="founder-role">Founder</div>
           </div>
           <div class="founder-badge">NB</div>
         </div>
@@ -540,33 +536,40 @@
 
 
 
-<section id="cta">
+<section id="cta" data-nav-theme="dark">
   <h2 class="section-headline reveal">Build with us<span style="color:var(--rose)">.</span></h2>
   <p class="reveal">BUJE helps individuals and small businesses turn social media into a more intentional, trustworthy part of their growth.</p>
   <div class="cta-btns reveal">
-    <a href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer" class="btn-green">Book a Call</a>
-    <a href="index.html#work" class="btn-secondary" style="color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.22);">View Cases</a>
+    <a href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer" class="btn-green" onclick="gtag('event','calendar_click',{event_category:'Lead',event_label:'Book Call'});">Book a Call</a>
+    <a href="index.html#work" class="btn-secondary" style="color: rgba(255,255,255,0.75); border-color: rgba(255,255,255,0.22);" onclick="gtag('event','cta_click',{event_category:'Navigation',event_label:'View Cases'});">View Cases</a>
   </div>
 </section>
 
-<footer>
+<footer data-nav-theme="dark">
   <div>
     <div class="footer-logo">Buje<span>.</span></div>
-    <div style="margin-top: 0.5rem; font-size: 0.8rem;">
+    <div style="margin-top: 0.5rem; font-size: 0.8rem; display: none;">
       <a href="mailto:nbujan@bebuje.com">nbujan@bebuje.com</a>
     </div>
   </div>
   <div style="font-size: 0.8rem; text-align: right;">
     <div>© 2026 Buje Entertainment LLC. All rights reserved.</div>
-    <div style="margin-top: 0.25rem;"><a href="https://bebuje.com">bebuje.com</a></div>
+    <div style="margin-top: 0.25rem; display: none;"><a href="https://bebuje.com">bebuje.com</a></div>
   </div>
 </footer>
 
 <script>
   const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
+  function syncNavTheme() {
+    const themedSection = document.elementsFromPoint(window.innerWidth / 2, nav.offsetHeight + 12)
+      .map((el) => el.closest('[data-nav-theme]'))
+      .find(Boolean);
+    nav.classList.toggle('nav-light', !themedSection || themedSection.dataset.navTheme === 'light');
+  }
+
+  window.addEventListener('scroll', syncNavTheme, { passive: true });
+  window.addEventListener('resize', syncNavTheme);
+  syncNavTheme();
 
   const reveals = document.querySelectorAll('.reveal');
   const revealObs = new IntersectionObserver((entries) => {
@@ -578,80 +581,29 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => revealObs.observe(el));
-
-  const sections = ['about-intro', 'perspective', 'journey', 'principles', 'cta'];
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
-
-  function updateActiveNav() {
-    const mid = window.innerHeight * 0.4;
-    let active = null;
-    sectionEls.forEach(sec => {
-      const r = sec.getBoundingClientRect();
-      if (r.top <= mid) active = sec.id;
-    });
-    navLinks.forEach(a => {
-      const href = a.getAttribute('href');
-      const local = href.startsWith('#') ? href.replace('#', '') : null;
-      a.classList.toggle('active', local === active);
-    });
-  }
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
-  updateActiveNav();
 </script>
 
 <div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
 
 <script>
   const enableCursor = window.matchMedia('(min-width: 960px) and (pointer: fine)');
-  const dot  = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
+  const dot = document.getElementById('cursor-dot');
   function setCursorMode() {
     if (enableCursor.matches) document.body.classList.add('cursor-enabled');
-    else document.body.classList.remove('cursor-enabled', 'cursor-hover', 'cursor-dark');
+    else document.body.classList.remove('cursor-enabled', 'cursor-hover');
   }
   setCursorMode();
   enableCursor.addEventListener('change', setCursorMode);
 
-  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-  let ringX = mouseX, ringY = mouseY;
-
   window.addEventListener('mousemove', (e) => {
     if (!enableCursor.matches) return;
-    mouseX = e.clientX; mouseY = e.clientY;
-    dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+    dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
   });
-  function animateRing() {
-    if (enableCursor.matches) {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
-    }
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
 
   document.querySelectorAll('a, button, .about-quote-card').forEach((el) => {
     el.addEventListener('mouseenter', () => { if (enableCursor.matches) document.body.classList.add('cursor-hover'); });
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
-
-  const darkSections = document.querySelectorAll('#cta, footer');
-  const darkObs = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!enableCursor.matches) return;
-      if (e.isIntersecting) document.body.classList.add('cursor-dark');
-      else {
-        const anyDark = Array.from(darkSections).some((s) => {
-          const r = s.getBoundingClientRect();
-          return r.top < window.innerHeight && r.bottom > 0;
-        });
-        if (!anyDark) document.body.classList.remove('cursor-dark');
-      }
-    });
-  }, { threshold: 0.1 });
-  darkSections.forEach((s) => darkObs.observe(s));
 </script>
 </body>
 </html>

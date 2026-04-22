@@ -5,12 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Case Study — Montserrat Bujan | Buje</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FYTNYM9T00"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+
   gtag('config', 'G-FYTNYM9T00');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "wfc90t9ck2");
 </script>
 <style>
   :root {
@@ -46,44 +56,51 @@
   body.cursor-enabled .chip,
   body.cursor-enabled .media-card { cursor: none; }
 
-  #cursor-dot, #cursor-ring {
+  #cursor-dot {
     display: none; pointer-events: none;
     position: fixed; transform: translate(-50%, -50%); z-index: 9999;
-  }
-  #cursor-dot {
     width: 10px; height: 10px; border-radius: 50%; background: var(--green);
     transition: background 0.25s ease;
   }
-  #cursor-ring {
-    width: 38px; height: 38px; border-radius: 50%;
-    border: 1.5px solid var(--green); opacity: 0.45;
-    transition: width 0.35s ease, height 0.35s ease, opacity 0.25s ease;
-  }
-  body.cursor-enabled #cursor-dot,
-  body.cursor-enabled #cursor-ring { display: block; }
+  body.cursor-enabled #cursor-dot { display: block; }
   body.cursor-hover #cursor-dot { background: var(--rose); }
-  body.cursor-hover #cursor-ring { width: 60px; height: 60px; opacity: 0; }
-  body.cursor-dark #cursor-ring { border-color: rgba(255,255,255,0.42); }
 
   nav {
     position: fixed; inset: 0 0 auto 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    gap: 1rem; padding: 1rem 1.1rem;
-    background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
-    border-bottom: 1px solid transparent; transition: border-color 0.25s ease;
+    gap: 1rem; padding: 1.5rem 4rem;
+    background: transparent;
+    border-bottom: 1px solid transparent;
   }
-  nav.scrolled { border-color: var(--gray-mid); }
   .nav-logo {
-    font-size: 1.4rem; font-weight: 900; letter-spacing: -0.04em; text-decoration: none;
+    font-weight: 900; font-size: 1.5rem; letter-spacing: -0.03em;
+    color: var(--white); text-decoration: none;
+    transition: color 0.25s ease;
   }
-  .nav-logo span { color: var(--green); }
-  .nav-links { display: none; list-style: none; gap: 1.5rem; }
-  .nav-links a { text-decoration: none; font-size: 0.9rem; color: var(--black); }
+  .nav-logo span {
+    color: var(--green);
+    transition: color 0.25s ease;
+  }
+  nav.nav-light .nav-logo { color: var(--black); }
+  nav.nav-light .nav-logo span { color: var(--rose); }
+  .nav-links { display: none; }
   .nav-cta {
-    display: inline-flex; align-items: center; justify-content: center;
-    min-height: 2.6rem; padding: 0.7rem 1rem; border-radius: 999px;
-    background: var(--black); color: var(--white); text-decoration: none;
-    font-size: 0.82rem; font-weight: 700; white-space: nowrap;
+    font-size: 0.75rem; font-weight: 700; padding: 0.6rem 1.5rem;
+    background: transparent; color: var(--white);
+    border: none; cursor: pointer; border-radius: 100px;
+    text-decoration: none; letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+  }
+  nav.nav-light .nav-cta {
+    color: var(--black);
+  }
+  .nav-cta:hover {
+    color: var(--green);
+  }
+  nav.nav-light .nav-cta:hover {
+    color: var(--rose);
   }
 
   section { padding: 4.75rem 1.1rem; }
@@ -93,7 +110,7 @@
   }
   .section-headline {
     font-size: clamp(2rem, 11vw, 3.5rem);
-    line-height: 1.02; letter-spacing: -0.05em; font-weight: 900;
+    line-height: 1.02; letter-spacing: -0.02em; font-weight: 900;
   }
   .section-copy {
     margin-top: 1.3rem; max-width: 42rem; color: #363630;
@@ -121,7 +138,7 @@
   }
   .hero-title {
     font-size: clamp(3rem, 16vw, 5.6rem);
-    font-weight: 900; line-height: 0.98; letter-spacing: -0.07em;
+    font-weight: 900; line-height: 0.98; letter-spacing: -0.02em;
   }
   .hero-title-line { display: block; color: var(--white); }
   .hero-title-accent { color: var(--green); }
@@ -149,7 +166,7 @@
     background: var(--green); flex-shrink: 0;
   }
   .hero-stats {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem;
   }
   .metric-card {
     border-radius: 22px; padding: 1rem;
@@ -193,7 +210,7 @@
   .overview-value { margin-top: 0.35rem; font-size: 1rem; line-height: 1.55; color: #23231f; }
   .quote-card { background: linear-gradient(180deg, #ffffff 0%, #f9faf7 100%); }
   .quote-text {
-    font-size: 1.35rem; line-height: 1.25; letter-spacing: -0.04em; font-weight: 700;
+    font-size: 1.35rem; line-height: 1.25; letter-spacing: -0.02em; font-weight: 700;
   }
   .quote-source { margin-top: 1rem; color: var(--gray-text); font-size: 0.9rem; }
 
@@ -208,7 +225,7 @@
     font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
     color: var(--gray-text); margin-bottom: 0.8rem;
   }
-  .story-step h3 { font-size: 1.2rem; letter-spacing: -0.04em; margin-bottom: 0.7rem; }
+  .story-step h3 { font-size: 1.2rem; letter-spacing: -0.02em; margin-bottom: 0.7rem; }
   .story-step p { color: #363630; line-height: 1.75; font-weight: 300; }
 
   /* GALLERY */
@@ -226,7 +243,7 @@
     width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
   }
   .media-copy { padding: 1rem; }
-  .media-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.03em; }
+  .media-title { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; }
   .media-desc { margin-top: 0.35rem; color: rgba(255,255,255,0.62); font-size: 0.9rem; line-height: 1.6; }
 
   /* CAROUSEL */
@@ -265,7 +282,7 @@
   #results { background: linear-gradient(180deg, #f5f5f3 0%, #ffffff 100%); }
   .result-stat {
     font-size: clamp(2.2rem, 12vw, 3.5rem);
-    font-weight: 900; line-height: 0.95; letter-spacing: -0.06em;
+    font-weight: 900; line-height: 0.95; letter-spacing: -0.02em;
   }
   .result-caption { margin-top: 0.45rem; color: #30302b; font-size: 1rem; font-weight: 500; }
   .result-note { margin-top: 0.75rem; color: var(--gray-text); font-size: 0.88rem; line-height: 1.55; }
@@ -288,13 +305,16 @@
 
   /* FOOTER */
   footer {
-    padding: 2rem 1.1rem 3rem; background: var(--black);
-    color: rgba(255,255,255,0.72); border-top: 1px solid rgba(255,255,255,0.08);
+    background: var(--black); color: rgba(255,255,255,0.35);
+    padding: 3rem 4rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    border-top: 1px solid #1f1f1f;
+    font-size: 0.85rem; text-align: center;
   }
-  .footer-logo { font-size: 1.4rem; font-weight: 900; color: var(--white); letter-spacing: -0.04em; }
-  .footer-logo span { color: var(--green); }
-  .footer-copy, .footer-link { font-size: 0.88rem; line-height: 1.7; color: rgba(255,255,255,0.64); text-decoration: none; }
-  .footer-link { color: rgba(255,255,255,0.8); }
+  footer .footer-logo { font-weight: 900; font-size: 1.2rem; color: var(--white); }
+  footer .footer-logo span { color: var(--green); }
+  footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+  footer a:hover { color: var(--white); }
 
   /* RESPONSIVE */
   @media (min-width: 700px) {
@@ -308,8 +328,7 @@
     .quote-card, .cta-panel { max-width: 52rem; }
   }
   @media (min-width: 960px) {
-    nav { padding: 1.3rem 4rem; }
-    .nav-links { display: flex; }
+    nav { padding: 1.5rem 4rem; }
     section, footer { padding-left: 4rem; padding-right: 4rem; }
     #hero {
       padding: 9rem 4rem 4rem;
@@ -336,16 +355,11 @@
 
 <nav id="main-nav">
   <a class="nav-logo" href="index.html">Buje<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="index.html#services">Services</a></li>
-    <li><a href="index.html#work">Cases</a></li>
-  </ul>
-  <a class="nav-cta" href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer">Book a Call</a>
+  <a class="nav-cta" href="about.html" onclick="gtag('event','cta_click',{event_category:'Navigation',event_label:'About'});">ABOUT</a>
 </nav>
 
 <!-- HERO -->
-<section id="hero">
+<section id="hero" data-nav-theme="dark">
   <div class="reveal">
     <div class="hero-eyebrow">Case Study / Montserrat Bujan</div>
     <h1 class="hero-title">
@@ -354,11 +368,11 @@
       <span class="hero-title-line hero-title-accent">trust.</span>
     </h1>
     <p class="hero-sub">
-      Montserrat Bujan had decades of financial expertise and a strong reputation — but her online presence didn't reflect it. The work was to close that gap: sharper positioning, a distinct brand identity, and content that translated real authority into digital trust.
+      Montserrat Bujan is a successful financial professional with a strong reputation. The work was to build sharper positioning, a distinct brand identity, and content that translated real authority into digital trust.
     </p>
     <div class="hero-actions">
-      <a class="btn-primary" href="#results">See Results</a>
-      <a class="btn-secondary" href="#gallery">View Creative</a>
+      <a class="btn-primary" href="#results" onclick="gtag('event','cta_click',{event_category:'Navigation',event_label:'See Results'});">See Results</a>
+      <a class="btn-secondary" href="#gallery" onclick="gtag('event','cta_click',{event_category:'Navigation',event_label:'View Creative'});">View Creative</a>
     </div>
     <div class="hero-meta">
       <a class="chip" href="#summary">
@@ -393,7 +407,7 @@
 </section>
 
 <!-- SUMMARY -->
-<section id="summary">
+<section id="summary" data-nav-theme="light">
   <p class="section-label reveal">Project Overview</p>
   <div class="overview-grid">
     <div class="overview-card reveal">
@@ -426,9 +440,9 @@
 </section>
 
 <!-- STORY -->
-<section id="story">
+<section id="story" data-nav-theme="light">
   <p class="section-label reveal">Strategy</p>
-  <h2 class="section-headline reveal">From financial mentor to a brand with a distinct voice.</h2>
+  <h2 class="section-headline reveal">From financial mentor to a brand.</h2>
   <p class="section-copy reveal">
     The financial space is crowded with generic advice and surface-level content. The strategy was to move in the opposite direction — build something ownable, rooted in Montserrat's actual perspective, and recognizable from the first interaction.
   </p>
@@ -437,7 +451,7 @@
     <div class="insight-card reveal">
       <div class="eyebrow-mini">What Needed Solving</div>
       <ul class="insight-list">
-        <li><strong>Strong offline reputation, weak online translation.</strong> The brand needed language and visuals that matched the depth of the expertise.</li>
+        <li><strong>Strong expertise that needed fuller online expression.</strong> The brand required language and visuals that matched the depth of the knowledge.</li>
         <li><strong>A crowded, noisy category.</strong> Differentiation had to come from a clear point of view, not just better-looking posts.</li>
         <li><strong>Trust over trend.</strong> The content system had to feel composed and consistent, not reactive.</li>
       </ul>
@@ -477,9 +491,9 @@
 </section>
 
 <!-- GALLERY -->
-<section id="gallery">
+<section id="gallery" data-nav-theme="dark">
   <p class="section-label reveal">Creative Output</p>
-  <h2 class="section-headline reveal">Built for vertical formats, designed to hold attention.</h2>
+  <h2 class="section-headline reveal">Built for vertical formats.</h2>
   <p class="section-copy reveal">
     The visual system had to work on a phone first — strong compositions, clean brand cues, and content that communicated the right idea without relying on captions alone.
   </p>
@@ -566,7 +580,7 @@
 </section>
 
 <!-- RESULTS -->
-<section id="results">
+<section id="results" data-nav-theme="light">
   <p class="section-label reveal">Results</p>
   <h2 class="section-headline reveal">The brand got sharper. The numbers followed.</h2>
   <p class="section-copy reveal">
@@ -595,42 +609,47 @@
 </section>
 
 <!-- CTA -->
-<section id="cta">
+<section id="cta" data-nav-theme="dark">
   <div class="cta-panel reveal">
     <p class="section-label" style="color:rgba(255,255,255,0.42); margin-bottom:0.8rem;">What This Shows</p>
-    <h2 class="section-headline">Clear strategy. Strong identity. Content that works.</h2>
+    <h2 class="section-headline">Clear strategy. Strong identity.</h2>
     <p>
       This project is a clear example of what happens when positioning is sharp, the visual language is intentional, and the content has a consistent job to do. If your digital presence doesn't reflect the quality of your actual work, that's where we start.
     </p>
     <div class="cta-actions">
-      <a href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer" class="btn-primary">Start a Project</a>
-      <a href="index.html#work" class="btn-secondary">Back to Cases</a>
+      <a href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer" class="btn-primary" onclick="gtag('event','calendar_click',{event_category:'Lead',event_label:'Book Call'});">Start a Project</a>
+      <a href="index.html#work" class="btn-secondary" onclick="gtag('event','cta_click',{event_category:'Navigation',event_label:'Back to Cases'});">Back to Cases</a>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-logo">Buje<span>.</span></div>
-      <div class="footer-copy">Digital presence, shaped with intention.</div>
+<footer data-nav-theme="dark">
+  <div>
+    <div class="footer-logo">Buje<span>.</span></div>
+    <div style="margin-top: 0.5rem; font-size: 0.8rem; display: none;">
+      <a href="mailto:nbujan@bebuje.com">nbujan@bebuje.com</a>
     </div>
-    <div>
-      <div class="footer-copy">© 2026 Buje Entertainment LLC. All rights reserved.</div>
-      <a class="footer-link" href="mailto:nbujan@bebuje.com">nbujan@bebuje.com</a>
-    </div>
+  </div>
+  <div style="font-size: 0.8rem; text-align: right;">
+    <div>© 2026 Buje Entertainment LLC. All rights reserved.</div>
+    <div style="margin-top: 0.25rem; display: none;"><a href="https://bebuje.com">bebuje.com</a></div>
   </div>
 </footer>
 
 <div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
 
 <script>
-  // Nav scroll
   const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 24);
-  }, { passive: true });
+  function syncNavTheme() {
+    const themedSection = document.elementsFromPoint(window.innerWidth / 2, nav.offsetHeight + 12)
+      .map((el) => el.closest('[data-nav-theme]'))
+      .find(Boolean);
+    nav.classList.toggle('nav-light', !!themedSection && themedSection.dataset.navTheme === 'light');
+  }
+
+  window.addEventListener('scroll', syncNavTheme, { passive: true });
+  window.addEventListener('resize', syncNavTheme);
+  syncNavTheme();
 
   // Reveal
   const reveals = document.querySelectorAll('.reveal');
@@ -672,52 +691,23 @@
   // Cursor
   const enableCursor = window.matchMedia('(min-width: 960px) and (pointer: fine)');
   const dot = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
   function setCursorMode() {
     if (enableCursor.matches) document.body.classList.add('cursor-enabled');
-    else document.body.classList.remove('cursor-enabled', 'cursor-hover', 'cursor-dark');
+    else document.body.classList.remove('cursor-enabled', 'cursor-hover');
   }
   setCursorMode();
   enableCursor.addEventListener('change', setCursorMode);
 
-  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-  let ringX = mouseX, ringY = mouseY;
-
   window.addEventListener('mousemove', (e) => {
     if (!enableCursor.matches) return;
-    mouseX = e.clientX; mouseY = e.clientY;
-    dot.style.left = mouseX + 'px'; dot.style.top = mouseY + 'px';
+    dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
   });
-  function animateRing() {
-    if (enableCursor.matches) {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
-    }
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
 
   document.querySelectorAll('a, button, .media-card').forEach((el) => {
     el.addEventListener('mouseenter', () => { if (enableCursor.matches) document.body.classList.add('cursor-hover'); });
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
 
-  const darkSections = document.querySelectorAll('#hero, #gallery, #cta, footer');
-  const darkObs = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (!enableCursor.matches) return;
-      if (e.isIntersecting) document.body.classList.add('cursor-dark');
-      else {
-        const anyDark = Array.from(darkSections).some((s) => {
-          const r = s.getBoundingClientRect();
-          return r.top < window.innerHeight && r.bottom > 0;
-        });
-        if (!anyDark) document.body.classList.remove('cursor-dark');
-      }
-    });
-  }, { threshold: 0.1 });
-  darkSections.forEach((s) => darkObs.observe(s));
 </script>
 </body>
 </html>
