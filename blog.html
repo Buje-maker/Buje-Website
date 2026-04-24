@@ -101,6 +101,28 @@
   html { scroll-behavior: auto; }
   body { font-family: var(--font); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
 
+  /* CURSOR */
+  body.cursor-enabled { cursor: none; }
+  body.cursor-enabled a,
+  body.cursor-enabled button,
+  body.cursor-enabled [role="button"],
+  body.cursor-enabled .nav-cta,
+  body.cursor-enabled .article-card { cursor: none; }
+  #cursor-dot {
+    display: none;
+    pointer-events: none;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    transition: background 0.25s ease;
+  }
+  body.cursor-enabled #cursor-dot { display: block; }
+  body.cursor-hover #cursor-dot { background: var(--rose); }
+
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -348,7 +370,7 @@
 <body>
 
 <nav id="main-nav">
-  <a class="nav-logo" href="index.html">Buje<span>.</span></a>
+  <a class="nav-logo" href="index.html" onclick="trackEvent('cta_click','Navigation','Blog Nav - Home');">Buje<span>.</span></a>
   <a class="nav-cta" href="about.html" onclick="trackEvent('cta_click','Navigation','Blog Nav - About');">ABOUT</a>
 </nav>
 
@@ -420,12 +442,49 @@
 
 <footer data-nav-theme="dark">
   <div class="footer-logo">Buje<span>.</span></div>
-  <div>© 2026 Buje Entertainment LLC. All rights reserved.</div>
+  <div>
+    <div>© 2026 Buje Entertainment LLC. All rights reserved.</div>
+    <div style="margin-top:0.35rem;"><a href="privacy.html" onclick="trackEvent('cta_click','CTA','Blog Footer Privacy');" style="color:rgba(255,255,255,0.35);text-decoration:none;">Privacy Statement</a></div>
+    <div style="margin-top:0.35rem;"><a href="terms.html" onclick="trackEvent('cta_click','CTA','Blog Footer Terms');" style="color:rgba(255,255,255,0.35);text-decoration:none;">Terms and Conditions</a></div>
+  </div>
 </footer>
 
 <div id="cursor-dot"></div>
 
 <script>
+  (function initAnalyticsTracking() {
+    if (window.__bujeAnalyticsInitialized) return;
+    window.__bujeAnalyticsInitialized = true;
+
+    let scroll50Tracked = false;
+    let scroll90Tracked = false;
+    const seenSections = new Set();
+
+    window.addEventListener('scroll', () => {
+      const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight;
+
+      if (!scroll50Tracked && scrollPercent > 0.5) {
+        scroll50Tracked = true;
+        trackEvent('scroll_50', 'Engagement', 'Blog Scroll 50%');
+      }
+
+      if (!scroll90Tracked && scrollPercent > 0.9) {
+        scroll90Tracked = true;
+        trackEvent('scroll_90', 'Engagement', 'Blog Scroll 90%');
+      }
+    }, { passive: true });
+
+    const trackableSections = document.querySelectorAll('section[id]');
+    const sectionViewObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting || seenSections.has(entry.target.id)) return;
+        seenSections.add(entry.target.id);
+        trackEvent('section_view', 'Engagement', entry.target.id, { section_id: entry.target.id });
+      });
+    }, { threshold: 0.5 });
+    trackableSections.forEach((section) => sectionViewObserver.observe(section));
+  })();
+
   /* NAV THEME */
   const nav = document.getElementById('main-nav');
   function syncNavTheme() {
@@ -451,17 +510,23 @@
 
   /* CURSOR DOT */
   const dot = document.getElementById('cursor-dot');
-  const enableCursor = window.matchMedia('(hover: hover) and (pointer: fine)');
-  if (enableCursor.matches) {
-    document.body.classList.add('cursor-enabled');
-    document.addEventListener('mousemove', e => {
-      dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-    });
-    document.querySelectorAll('a, button, .article-card').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-    });
+  const enableCursor = window.matchMedia('(min-width: 960px) and (pointer: fine)');
+  function setCursorMode() {
+    if (enableCursor.matches) document.body.classList.add('cursor-enabled');
+    else document.body.classList.remove('cursor-enabled', 'cursor-hover');
   }
+  setCursorMode();
+  enableCursor.addEventListener('change', setCursorMode);
+
+  document.addEventListener('mousemove', e => {
+    if (!enableCursor.matches) return;
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .article-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { if (enableCursor.matches) document.body.classList.add('cursor-hover'); });
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+  });
 </script>
 </body>
 </html>

@@ -671,7 +671,7 @@
 <body>
 
 <nav id="main-nav" class="nav-light">
-  <a class="nav-logo" href="index.html">Buje<span>.</span></a>
+  <a class="nav-logo" href="index.html" onclick="trackEvent('cta_click','Navigation','About Nav - Home');">Buje<span>.</span></a>
   <a class="nav-cta" href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer" onclick="trackEvent('calendar_click','Lead','About - Nav Book Call');">BOOK CALL</a>
 </nav>
 
@@ -705,11 +705,10 @@
 
 
 <section id="cta" data-nav-theme="dark">
-  <h2 class="section-headline reveal">Build with us<span style="color:var(--rose)">.</span></h2>
-  <p class="reveal">BUJE helps individuals and businesses of all sizes turn social media into a more intentional, trustworthy part of their growth.</p>
+  <h2 class="section-headline reveal">Find your conversion gaps<span style="color:var(--rose)">.</span></h2>
+  <p class="reveal">Get a free review of your current site, messaging, and conversion flow.</p>
   <div class="cta-btns reveal">
-    <a href="https://calendar.app.google/nASebpsy7ougWdi37" target="_blank" rel="noopener noreferrer" class="btn-green" onclick="trackEvent('calendar_click','Lead','About - Book a Call');">Book a Call</a>
-    <a href="case-study.html" class="btn-secondary" onclick="trackEvent('cta_click','CTA','About - View Cases');">View Cases</a>
+    <a href="index.html#cta" class="btn-green" onclick="trackEvent('cta_click','Lead','About - Free Review');">Find Your Conversion Gaps</a>
   </div>
 </section>
 
@@ -722,6 +721,8 @@
   </div>
   <div style="font-size: 0.8rem; text-align: right;">
     <div>© 2026 Buje Entertainment LLC. All rights reserved.</div>
+    <div style="margin-top:0.35rem;"><a href="privacy.html" onclick="trackEvent('cta_click','CTA','About Footer Privacy');" style="color:rgba(255,255,255,0.35);text-decoration:none;">Privacy Statement</a></div>
+    <div style="margin-top:0.35rem;"><a href="terms.html" onclick="trackEvent('cta_click','CTA','About Footer Terms');" style="color:rgba(255,255,255,0.35);text-decoration:none;">Terms and Conditions</a></div>
     <div style="margin-top: 0.25rem; display: none;"><a href="https://bebuje.com">bebuje.com</a></div>
   </div>
 </footer>
